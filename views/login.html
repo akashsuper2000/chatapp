@@ -1,0 +1,73 @@
+
+<center>
+    <h1>
+      Login page
+    </h1>
+  </center>
+
+<div class="container center text-center">
+    <div class="container inner_container">
+        <div class="row text-center Absolute-Cente is-Responsive">
+            <div class="page-header">
+                <h1>WebChat</h1>
+            </div>
+            <form>
+                <div class="form-group input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input class="form-control" type="text" name='handle' placeholder="Enter Username" ng-model="login_data.handle"/> 
+                </div>
+                <div class="form-group input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input class="form-control" type="password" name='password' placeholder="Enter Password" ng-model="login_data.password" my-enter="login()"/>     
+                </div>
+                <!-- Invoke the function login() on clicking the Login button -->
+                <button type="button" class="btn btn-primary btn-block" style="background:#333">
+                    Login</button>
+                <br/>
+                <div class="form-group pull-right">Not a member? <a href="#" data-toggle="modal" data-target="#myModal">Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div class="modal-header" style="padding:15px 50px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="text-center"><span class="glyphicon glyphicon-lock"></span> Register</h4>
+            </div>
+            <div class="modal-body" style="padding:20px 50px;">
+                <!-- invoke the action that is defined on "http://localhost:8080/register" in this form -->
+                <form role="form"  method="post">
+                    <div class="form-group">
+                        <label for="name"><span class="glyphicon glyphicon-user"></span> Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Full Name" ng-model="user.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="handle"><span class="glyphicon glyphicon-user"></span> Handle</label>
+                        <input type="text" class="form-control" id="handle" placeholder="Enter Handle" ng-model="user.handle">
+                    </div>
+                    <div class="form-group">
+                        <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                        <input type="password" class="form-control" id="psw" placeholder="Enter password" ng-model="user.password">
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email</label>
+                        <input type="text" class="form-control" id="email" placeholder="Enter Email" ng-model="user.email">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone"><span class="glyphicon glyphicon-phone"></span> Phone</label>
+                        <input type="text" class="form-control" id="phone" placeholder="Enter Phone number" ng-model="user.phone">
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" ng-click="Register()"><span class="glyphicon glyphicon-off"></span>
+                        Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
