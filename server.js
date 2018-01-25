@@ -3,7 +3,7 @@ var app=express();
 var http=require('http').Server(app);
 var io = require('socket.io')(http);
 var ip = require('ip');
-var port =  // fill port number
+var port =8080;  // fill port number
 app.use(express.static('./')); 
 
 require("./server/controller.js")(app,io);

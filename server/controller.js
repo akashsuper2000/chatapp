@@ -1,6 +1,6 @@
 var models = require('./db.js');
 var path = require('path');
-var bodyParser = require(''); // fill in required header
+var bodyParser = require('body-parser'); // fill in required header
 
 
 
@@ -11,13 +11,18 @@ module.exports = function (app,io){
     }));
     
     app.get('/',function(req,res){
-        // code here --> send response
+        res.sendFile(path.resolve(__dirname + "/../views/index.html"));                    // code here --> send response
     });
     
     app.post('/register',function(req,res){
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader("Access-Control-Allow-Method","'GET, POST, OPTIONS, PUT, PATCH, DELETE'");
         var user={
+            "name":req.body.name,
+            "handle":req.body.handle,
+            "password":req.body.password,
+            "phone":req.body.phone,
+            "email":req.body.email,
             /*
             Fill details in json
             in order - name,handle,password,phone,email
@@ -33,11 +38,11 @@ module.exports = function (app,io){
                 models.user.create(user,function(err,doc){
                     if(err) res.json(err);
                     else{
-                        // send sucess page
+                        res.sendFile(path.resolve(__dirname+"/../views/test.html"));// send sucess page
                     }
                 });
             }else{
-                // send error page
+                res.send("User Already Exist");// send error page
             }
         })
         
@@ -52,19 +57,20 @@ module.exports = function (app,io){
     app.post('/login',function(req,res){
         console.log(req.body.handle);
 
-        // set respone header
+        res.setHeader('Access-Control-Allow-Origin','*')
+        res.setHeader("Access-Control-Allow-Method","GET,POST,OPTIONS,PUT,PATCH,DELETE")// set respone header
 
-        handle = ; // find handle
+        handle = req.body.handle ; // find handle
         models.user.findOne({"handle":req.body.handle, "password":req.body.password},function(err,doc){
             if(err){
                 res.send(err); 
             }
             if(doc==null){
-               // send user has not registered
+               res.send("User not registered")// send user has not registered
             }
             else{
                 console.log("Asas"+__dirname);
-               // send sucess
+               res.send("User registered")// send sucessres.send("User not registered")
             }
             
     });
@@ -82,11 +88,13 @@ module.exports = function (app,io){
         console.log("keys list : "+keys);
         
         socket.on('group message',function(msg){
+            console.log(msg);
             // log the msg
+            io.emit(msg);
             // emit msg in group
         });
         
-        socket.on('private message',function(msg){
+        /*socket.on('private message',function(msg){
             console.log('message  :'+msg.split("#*@")[0]);
             models.messages.create({
                 "message":// find message
@@ -95,10 +103,12 @@ module.exports = function (app,io){
                 "date" : // get date
             });
             io.to(users[msg.split("#*@")[0]]).emit('private message', msg);
-        });
+        });*/
         
         socket.on('disconnect', function(){
+            delete users[keys[socket.id]];
             // delete user and keys
+            io.emit('users',users)
             // emit users in users
             console.log(users);
         });
