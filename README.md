@@ -9,7 +9,7 @@
 Your server will be setup and ready for use.
 
 ### UI
-* Go to browser and type `localhost:8080` in place of url.
-* Register user by giving basic details.
+* Go to browser and type `localhost:8080` in place of the url.
+* Register the user by giving basic details.
 * Login from the same screen.  
 `Note: Handle should be unique for every user.`
