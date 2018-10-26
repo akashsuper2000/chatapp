@@ -1,4 +1,5 @@
 # chatapp
+This is a web-based GUI chat application! 
 ### Server
 * You need to have node and npm installed in your machine.
 * open up your teminal or command prompt and go to the directory `chat`
